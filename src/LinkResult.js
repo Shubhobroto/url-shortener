@@ -18,17 +18,23 @@ const LinkResult = ({ inputValue }) => {
 
         let url = inputValue.trim();
 
-        // ensure https:// is added
+        // make sure URL is valid
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
           url = "https://" + url;
         }
 
-        const res = await axios.get(
-          `https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`
-        );
+        // CORS proxy
+        const proxy = "https://api.allorigins.win/get?url=";
+        const target = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(
+          url
+        )}`;
 
-        setShortenLink(res.data);
+        const res = await axios.get(proxy + encodeURIComponent(target));
+
+        // allorigins wraps output in { contents: "..." }
+        setShortenLink(res.data.contents);
       } catch (err) {
+        console.error(err);
         setError(true);
       } finally {
         setLoading(false);
