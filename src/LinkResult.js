@@ -9,18 +9,25 @@ const LinkResult = ({ inputValue }) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!inputValue || !inputValue.length) {
-      return;
-    }
+    if (!inputValue) return;
 
     const fetchData = async () => {
       try {
-        setError(false);
         setLoading(true);
-        const res = await axios(
-          `https://api.shrtco.de/v2/shorten?url=${inputValue}`
+        setError(false);
+
+        let url = inputValue.trim();
+
+        // ensure https:// is added
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+          url = "https://" + url;
+        }
+
+        const res = await axios.get(
+          `https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`
         );
-        setShortenLink(res.data.result.full_short_link);
+
+        setShortenLink(res.data);
       } catch (err) {
         setError(true);
       } finally {
@@ -33,34 +40,20 @@ const LinkResult = ({ inputValue }) => {
 
   useEffect(() => {
     if (!copied) return;
-
-    const timer = setTimeout(() => {
-      setCopied(false);
-    }, 1000);
-
+    const timer = setTimeout(() => setCopied(false), 1000);
     return () => clearTimeout(timer);
   }, [copied]);
 
-  if (loading) {
-    return <p className="noData">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="noData">Something went wrong :(</p>;
-  }
+  if (loading) return <p className="noData">Loading...</p>;
+  if (error) return <p className="noData">Something went wrong :(</p>;
 
   return (
     <>
       {shortenLink && (
         <div className="result">
           <p>{shortenLink}</p>
-          <CopyToClipboard
-            text={shortenLink}
-            onCopy={() => setCopied(true)}
-          >
-            <button className={copied ? "copied" : ""}>
-              Copy to Clipboard
-            </button>
+          <CopyToClipboard text={shortenLink} onCopy={() => setCopied(true)}>
+            <button className={copied ? "copied" : ""}>Copy to Clipboard</button>
           </CopyToClipboard>
         </div>
       )}
