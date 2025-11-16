@@ -4,7 +4,7 @@ Created shortener app with shrtco api, so we just need to fetch data from the ap
 
 In the project directory, you can run:
 
-### Live Demo : https://shubhourls.herokuapp.com/
+### Live Demo : [https://shubhourls.herokuapp.com/](https://url-shortner-shubho.netlify.app/)
 
 
 ## Preview
@@ -25,11 +25,12 @@ Click On Shorten
 After cloning it in your local system, install all the required node modules by running
 
 ```bash
-yarn install
+npm install
 ```
 Instal All dependencies in this project
 ```bash
-yarn start
+npm run build
+npm start
 ```
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
