@@ -4,7 +4,7 @@ Created shortener app with shrtco api, so we just need to fetch data from the ap
 
 In the project directory, you can run:
 
-### Live Demo : [https://shubhourls.herokuapp.com/](https://url-shortner-shubho.netlify.app/)
+### Live Demo : [https://url-shortner-shubho.netlify.app/]
 
 
 ## Preview
