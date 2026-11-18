@@ -1,6 +1,6 @@
 ### URL-SHORTNER APPLICATION
 
-Created shortener app with shrtco api, so we just need to fetch data from the api and add long url as e parameter and then we get the shortener url
+Created shortener app with is.gd API, so we just need to fetch data from the api and add long url as e parameter and then we get the shortener url
 
 In the project directory, you can run:
 
